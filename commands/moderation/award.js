@@ -6,7 +6,7 @@ const WILDERNESS_ClAN_ROLE_ID = '876370089987952700';
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('cotm')
+        .setName('award')
         .setDescription('Manage Clan Wars Clan of the Month roles')
         .addSubcommand(subcommand =>
             subcommand
