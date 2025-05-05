@@ -1,32 +1,42 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 
-// Role IDs for Crafter and Writer of the Month
-const CRAFTER_ROLE_ID = '874510046208360459';
-const WRITER_ROLE_ID = '876370089987952700';
+// Role IDs for Clan Wars Clan and Wilderness Clan of the Month
+const CLAN_WARS_CLAN_ROLE_ID = '874510046208360459';
+const WILDERNESS_ClAN_ROLE_ID = '876370089987952700';
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('award')
-        .setDescription('Manage Crafter/Writer of the Month roles')
+        .setDescription('Manage Clan Wars Clan of the Month roles')
         .addSubcommand(subcommand =>
             subcommand
                 .setName('cwcotm')
-                .setDescription('Assign Crafter of the Month role to users with a specific role')
+                .setDescription('Assign Clan Wars Clan of the Month role to users with a specific role')
                 .addRoleOption(option =>
                     option.setName('role')
-                        .setDescription('The role whose members will receive Crafter of the Month')
+                        .setDescription('The role whose members will receive Clan Wars Clan of the Month')
                         .setRequired(true)
                 )
         )
         .addSubcommand(subcommand =>
             subcommand
                 .setName('wcotm')
-                .setDescription('Assign Writer of the Month role to users with a specific role')
+                .setDescription('Assign Wilderness Clan of the Month role to users with a specific role')
                 .addRoleOption(option =>
                     option.setName('role')
-                        .setDescription('The role whose members will receive Writer of the Month')
+                        .setDescription('The role whose members will receive Wilderness Clan of the Month')
                         .setRequired(true)
                 )
+        )
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName('remove_cwcotm')
+                .setDescription('Remove Clan Wars Clan of the Month role from all users who have it')
+        )
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName('remove_wcotm')
+                .setDescription('Remove Wilderness Clan of the Month role from all users who have it')
         )
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageRoles),
 
@@ -41,19 +51,29 @@ module.exports = {
 
         await interaction.deferReply();
         const subcommand = interaction.options.getSubcommand();
-        const targetRole = interaction.options.getRole('role');
         
         try {
             if (subcommand === 'cwcotm') {
-                await assignRoleToMembers(interaction, targetRole.id, CRAFTER_ROLE_ID);
-                await interaction.editReply(`Successfully assigned Crafter of the Month to members with the ${targetRole.name} role.`);
-            } else if (subcommand === 'wcotm') {
-                await assignRoleToMembers(interaction, targetRole.id, WRITER_ROLE_ID);
-                await interaction.editReply(`Successfully assigned Writer of the Month to members with the ${targetRole.name} role.`);
+                const targetRole = interaction.options.getRole('role');
+                await assignRoleToMembers(interaction, targetRole.id, CLAN_WARS_CLAN_ROLE_ID);
+                await interaction.editReply(`Successfully assigned Clan Wars Clan of the Month to members with the ${targetRole.name} role.`);
+            } 
+            else if (subcommand === 'wcotm') {
+                const targetRole = interaction.options.getRole('role');
+                await assignRoleToMembers(interaction, targetRole.id, WILDERNESS_ClAN_ROLE_ID);
+                await interaction.editReply(`Successfully assigned Wilderness Clan of the Month to members with the ${targetRole.name} role.`);
+            }
+            else if (subcommand === 'remove_cwcotm') {
+                const removedCount = await removeRoleFromMembers(interaction, CLAN_WARS_CLAN_ROLE_ID);
+                await interaction.editReply(`Successfully removed Clan Wars Clan of the Month role from ${removedCount} members.`);
+            }
+            else if (subcommand === 'remove_wcotm') {
+                const removedCount = await removeRoleFromMembers(interaction, WILDERNESS_ClAN_ROLE_ID);
+                await interaction.editReply(`Successfully removed Wilderness Clan of the Month role from ${removedCount} members.`);
             }
         } catch (error) {
-            console.error('Error assigning roles:', error);
-            await interaction.editReply('An error occurred while assigning roles.');
+            console.error('Error managing roles:', error);
+            await interaction.editReply('An error occurred while managing roles.');
         }
     }
 };
@@ -87,4 +107,35 @@ async function assignRoleToMembers(interaction, sourceRoleId, targetRoleId) {
     }
     
     return assignedCount;
+}
+
+async function removeRoleFromMembers(interaction, roleId) {
+    const guild = interaction.guild;
+    
+    // Fetch all guild members
+    await guild.members.fetch();
+    
+    // Get the role to remove
+    const roleToRemove = guild.roles.cache.get(roleId);
+    if (!roleToRemove) {
+        throw new Error(`Role with ID ${roleId} not found.`);
+    }
+    
+    // Get members with the role
+    const membersWithRole = guild.members.cache.filter(member => 
+        member.roles.cache.has(roleId)
+    );
+    
+    // Remove the role from each member
+    let removedCount = 0;
+    for (const [_, member] of membersWithRole) {
+        try {
+            await member.roles.remove(roleToRemove);
+            removedCount++;
+        } catch (error) {
+            console.error(`Failed to remove role from ${member.user.tag}:`, error);
+        }
+    }
+    
+    return removedCount;
 }
