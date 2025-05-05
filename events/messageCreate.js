@@ -69,7 +69,7 @@
             }
 
             // Check for #_ prefix restriction
-            if (message.content.startsWith('# ') && message.guildId === '374971715626991626') {
+            if (message.content.startsWith('# ' && '## ') && message.guildId === '374971715626991626') {
                 // Check if user has the staff role
                 const isStaff = message.member.roles.cache.has('689147294649679894');
             
