@@ -9,7 +9,7 @@
 
   // Create users directory if it doesn't exist
   if (!fs.existsSync(usersPath)) {
-      fs.mkdirSync(usersPath);
+      fs.mkdirSync(usersPath, { recursive: true });
   }
 
   function getUserData(userId) {
@@ -25,12 +25,44 @@
           fs.writeFileSync(userPath, JSON.stringify(defaultData, null, 2));
           return defaultData;
       }
-      return JSON.parse(fs.readFileSync(userPath, 'utf8'));
+    
+      try {
+          const data = fs.readFileSync(userPath, 'utf8');
+          if (data.trim()) {
+              return JSON.parse(data);
+          } else {
+              // File is empty, return default data
+              const defaultData = {
+                  balance: 0,
+                  xp: 0,
+                  level: 1,
+                  messageCount: 0,
+                  lastDaily: null
+              };
+              fs.writeFileSync(userPath, JSON.stringify(defaultData, null, 2));
+              return defaultData;
+          }
+      } catch (error) {
+          console.error(`Error parsing user data for ${userId}, creating new file:`, error.message);
+          const defaultData = {
+              balance: 0,
+              xp: 0,
+              level: 1,
+              messageCount: 0,
+              lastDaily: null
+          };
+          fs.writeFileSync(userPath, JSON.stringify(defaultData, null, 2));
+          return defaultData;
+      }
   }
 
   function saveUserData(userId, data) {
       const userPath = path.join(usersPath, `${userId}.json`);
-      fs.writeFileSync(userPath, JSON.stringify(data, null, 2));
+      try {
+          fs.writeFileSync(userPath, JSON.stringify(data, null, 2));
+      } catch (error) {
+          console.error(`Error saving user data for ${userId}:`, error.message);
+      }
   }
 
   const client = new Client({

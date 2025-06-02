@@ -1,0 +1,30 @@
+{
+  "rarities": {
+    "common": {
+      "weight": 70,
+      "color": "#b8b8b8"
+    },
+    "rare": {
+      "weight": 20,
+      "color": "#4287f5"
+    },
+    "epic": {
+      "weight": 8,
+      "color": "#9142f5"
+    },
+    "legendary": {
+      "weight": 2,
+      "color": "#f5c242"
+    }
+  },
+  "cards": [
+    {
+      "id": "001",
+      "name": "Sharkbrew Warrior",
+      "rarity": "common",
+      "image": "warrior.png",
+      "description": "A brave warrior of the seas"
+    }
+
+  ]
+}

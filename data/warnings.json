@@ -1,0 +1,66 @@
+{
+  "335476614684999693": {
+    "warnings": [
+      {
+        "reason": "test",
+        "moderator": "278992578647425024",
+        "timestamp": 1735236887967,
+        "warningId": "aaab29f8-735f-4b1f-8f31-570bf7e65b9d"
+      }
+    ],
+    "totalWarnings": 1
+  },
+  "673665613738147871": {
+    "warnings": [
+      {
+        "reason": "test",
+        "moderator": "278992578647425024",
+        "timestamp": 1735389009650,
+        "warningId": "983c0f65-9587-4b71-942a-c27240311ecd"
+      },
+      {
+        "reason": "test",
+        "moderator": "278992578647425024",
+        "timestamp": 1735389014028,
+        "warningId": "62d97702-55fa-4d95-a650-791b6bd37bd0"
+      },
+      {
+        "reason": "test",
+        "moderator": "278992578647425024",
+        "timestamp": 1735389016559,
+        "warningId": "f632f638-b359-41bf-931a-4ced05d2b598"
+      },
+      {
+        "reason": "test",
+        "moderator": "278992578647425024",
+        "timestamp": 1735389019062,
+        "warningId": "454ddc3a-e5fe-46c7-becc-aae621f2b9c4"
+      },
+      {
+        "reason": "test",
+        "moderator": "278992578647425024",
+        "timestamp": 1735389021475,
+        "warningId": "84b497dc-5e01-4da4-bdde-b83153e8d10e"
+      },
+      {
+        "reason": "test",
+        "moderator": "278992578647425024",
+        "timestamp": 1735389076646,
+        "warningId": "ba695467-9123-4d66-b7e6-50052ad1c1c1"
+      },
+      {
+        "reason": "test",
+        "moderator": "278992578647425024",
+        "timestamp": 1735389081949,
+        "warningId": "82a587ee-e42a-48b4-bf8d-6f26a8c7b62a"
+      },
+      {
+        "reason": "test",
+        "moderator": "278992578647425024",
+        "timestamp": 1735389625800,
+        "warningId": "9cd8d404-4a44-4e6b-af2d-7af5c9075468"
+      }
+    ],
+    "totalWarnings": 8
+  }
+}

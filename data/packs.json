@@ -1,0 +1,16 @@
+{
+  "basic": {
+    "name": "Basic Pack",
+    "price": 1000,
+    "cards": 3,
+    "description": "Contains 3 random cards",
+    "guaranteedRarity": "common"
+  },
+  "premium": {
+    "name": "Premium Pack",
+    "price": 5000,
+    "cards": 5,
+    "description": "Contains 5 cards with increased rare chance",
+    "guaranteedRarity": "rare"
+  }
+}
