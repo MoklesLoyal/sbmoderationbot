@@ -1,4 +1,4 @@
-  const { Client, GatewayIntentBits, Collection, REST, Routes } = require('discord.js');
+  const { Client, GatewayIntentBits, Collection, REST, Routes, EmbedBuilder } = require('discord.js');
   const { Player } = require('discord-player');
   const fs = require('fs');
   const path = require('path');
