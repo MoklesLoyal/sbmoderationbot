@@ -58,7 +58,7 @@
       "aura": 5,
       "positiveReactions": 5,
       "negativeReactions": 0,
-      "totalMessages": 171
+      "totalMessages": 173
     },
     "169054857838329856": {
       "aura": 9,
@@ -70,13 +70,13 @@
       "aura": 5,
       "positiveReactions": 3,
       "negativeReactions": 0,
-      "totalMessages": 76
+      "totalMessages": 80
     },
     "1119330485743657156": {
       "aura": 1,
       "positiveReactions": 10,
       "negativeReactions": 3,
-      "totalMessages": 166
+      "totalMessages": 177
     },
     "198098034599526400": {
       "aura": 4,
@@ -97,10 +97,10 @@
       "totalMessages": 440
     },
     "710179287705190434": {
-      "aura": 1,
-      "positiveReactions": 1,
+      "aura": 3,
+      "positiveReactions": 3,
       "negativeReactions": 0,
-      "totalMessages": 45
+      "totalMessages": 49
     },
     "246229919707824128": {
       "aura": 6,
@@ -196,7 +196,7 @@
       "aura": -7,
       "positiveReactions": 5,
       "negativeReactions": 4,
-      "totalMessages": 124
+      "totalMessages": 125
     },
     "545112504817287168": {
       "aura": 0,
@@ -232,7 +232,7 @@
       "aura": 3,
       "positiveReactions": 1,
       "negativeReactions": 0,
-      "totalMessages": 54
+      "totalMessages": 59
     },
     "860340843936612413": {
       "aura": 2,
@@ -301,10 +301,10 @@
       "totalMessages": 10
     },
     "327111301929238528": {
-      "aura": 27,
-      "positiveReactions": 11,
+      "aura": 40,
+      "positiveReactions": 16,
       "negativeReactions": 0,
-      "totalMessages": 101
+      "totalMessages": 122
     },
     "257783109846564874": {
       "aura": 1,
@@ -571,10 +571,10 @@
       "totalMessages": 1
     },
     "278992578647425024": {
-      "aura": 7,
-      "positiveReactions": 7,
-      "negativeReactions": 0,
-      "totalMessages": 82
+      "aura": 4,
+      "positiveReactions": 8,
+      "negativeReactions": 1,
+      "totalMessages": 86
     },
     "159095490082766848": {
       "aura": 0,
@@ -778,7 +778,7 @@
       "aura": 2,
       "positiveReactions": 2,
       "negativeReactions": 0,
-      "totalMessages": 5
+      "totalMessages": 8
     },
     "153202324142030849": {
       "aura": 0,
@@ -2230,6 +2230,27 @@
     },
     "1379241247788634112": {
       "1066532342669246474": "💯"
+    },
+    "1379242410349170810": {
+      "1119330485743657156": "😂",
+      "1066532342669246474": "😂"
+    },
+    "1379242588044787743": {
+      "1119330485743657156": "💯"
+    },
+    "1379242863556296827": {
+      "1119330485743657156": "😂"
+    },
+    "1379243351773282304": {
+      "1119330485743657156": "💯",
+      "1066532342669246474": "💯"
+    },
+    "1379243397235081298": {
+      "1066532342669246474": "💯"
+    },
+    "1379244549905449011": {
+      "704446621684858921": "💩",
+      "291221162128834561": "🔥"
     }
   }
 }

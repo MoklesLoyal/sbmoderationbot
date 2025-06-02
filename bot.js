@@ -14,23 +14,56 @@
 
   function getUserData(userId) {
       const userPath = path.join(usersPath, `${userId}.json`);
+      const defaultData = {
+          balance: 0,
+          xp: 0,
+          level: 1,
+          messageCount: 0,
+          lastDaily: null
+      };
+
       if (!fs.existsSync(userPath)) {
-          const defaultData = {
-              balance: 0,
-              xp: 0,
-              level: 1,
-              messageCount: 0,
-              lastDaily: null
-          };
           fs.writeFileSync(userPath, JSON.stringify(defaultData, null, 2));
           return defaultData;
       }
-      return JSON.parse(fs.readFileSync(userPath, 'utf8'));
+
+      try {
+          const fileContent = fs.readFileSync(userPath, 'utf8');
+          
+          // Check if file is empty or contains only whitespace
+          if (!fileContent.trim()) {
+              console.log(`Empty user file detected for ${userId}, recreating...`);
+              fs.writeFileSync(userPath, JSON.stringify(defaultData, null, 2));
+              return defaultData;
+          }
+
+          return JSON.parse(fileContent);
+      } catch (error) {
+          console.error(`Error parsing user data for ${userId}:`, error.message);
+          console.log(`Recreating corrupted user file for ${userId}...`);
+          
+          // Backup the corrupted file
+          const backupPath = path.join(usersPath, `${userId}_corrupted_${Date.now()}.json.bak`);
+          try {
+              fs.copyFileSync(userPath, backupPath);
+              console.log(`Corrupted file backed up to: ${backupPath}`);
+          } catch (backupError) {
+              console.error('Failed to backup corrupted file:', backupError.message);
+          }
+
+          // Create new file with default data
+          fs.writeFileSync(userPath, JSON.stringify(defaultData, null, 2));
+          return defaultData;
+      }
   }
 
   function saveUserData(userId, data) {
       const userPath = path.join(usersPath, `${userId}.json`);
-      fs.writeFileSync(userPath, JSON.stringify(data, null, 2));
+      try {
+          fs.writeFileSync(userPath, JSON.stringify(data, null, 2));
+      } catch (error) {
+          console.error(`Error saving user data for ${userId}:`, error.message);
+      }
   }
 
   const client = new Client({
