@@ -58,7 +58,7 @@
       "aura": 5,
       "positiveReactions": 5,
       "negativeReactions": 0,
-      "totalMessages": 143
+      "totalMessages": 152
     },
     "169054857838329856": {
       "aura": 9,
@@ -94,7 +94,7 @@
       "aura": 6,
       "positiveReactions": 4,
       "negativeReactions": 0,
-      "totalMessages": 421
+      "totalMessages": 427
     },
     "710179287705190434": {
       "aura": 1,
@@ -136,7 +136,7 @@
       "aura": 34,
       "positiveReactions": 24,
       "negativeReactions": 0,
-      "totalMessages": 236
+      "totalMessages": 261
     },
     "589312887831658508": {
       "aura": 6,
@@ -304,13 +304,13 @@
       "aura": 24,
       "positiveReactions": 10,
       "negativeReactions": 0,
-      "totalMessages": 53
+      "totalMessages": 72
     },
     "257783109846564874": {
       "aura": 0,
       "positiveReactions": 0,
       "negativeReactions": 0,
-      "totalMessages": 23
+      "totalMessages": 40
     },
     "291294135590191111": {
       "aura": 23,
@@ -406,7 +406,7 @@
       "aura": 2,
       "positiveReactions": 2,
       "negativeReactions": 0,
-      "totalMessages": 227
+      "totalMessages": 230
     },
     "302469421228883968": {
       "aura": 3,
@@ -526,7 +526,7 @@
       "aura": 0,
       "positiveReactions": 0,
       "negativeReactions": 0,
-      "totalMessages": 24
+      "totalMessages": 27
     },
     "454679964407824403": {
       "aura": 0,
@@ -574,7 +574,7 @@
       "aura": 7,
       "positiveReactions": 7,
       "negativeReactions": 0,
-      "totalMessages": 72
+      "totalMessages": 75
     },
     "159095490082766848": {
       "aura": 0,
@@ -779,6 +779,12 @@
       "positiveReactions": 2,
       "negativeReactions": 0,
       "totalMessages": 5
+    },
+    "153202324142030849": {
+      "aura": 0,
+      "positiveReactions": 0,
+      "negativeReactions": 0,
+      "totalMessages": 1
     }
   },
   "messageReactions": {
@@ -2167,6 +2173,9 @@
     },
     "1379230672266199161": {
       "1119330485743657156": "😭"
+    },
+    "1379232944400367617": {
+      "1152082980555214859": "kekcry"
     }
   }
 }

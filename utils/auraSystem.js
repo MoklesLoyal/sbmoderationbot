@@ -7,7 +7,7 @@ const auraFilePath = path.join(dataPath, 'aura.json');
 
 // Create data directory if it doesn't exist
 if (!fs.existsSync(dataPath)) {
-    fs.mkdirSync(dataPath);
+    fs.mkdirSync(dataPath, { recursive: true });
 }
 
 // Initialize or load aura data
@@ -20,12 +20,38 @@ function getAuraData() {
         fs.writeFileSync(auraFilePath, JSON.stringify(defaultData, null, 2));
         return defaultData;
     }
-    return JSON.parse(fs.readFileSync(auraFilePath, 'utf8'));
+    
+    try {
+        const data = fs.readFileSync(auraFilePath, 'utf8');
+        if (data.trim()) {
+            return JSON.parse(data);
+        } else {
+            // File is empty, initialize with default data
+            const defaultData = { 
+                users: {},
+                messageReactions: {}
+            };
+            fs.writeFileSync(auraFilePath, JSON.stringify(defaultData, null, 2));
+            return defaultData;
+        }
+    } catch (error) {
+        console.error('Error parsing aura.json, creating new file:', error.message);
+        const defaultData = { 
+            users: {},
+            messageReactions: {}
+        };
+        fs.writeFileSync(auraFilePath, JSON.stringify(defaultData, null, 2));
+        return defaultData;
+    }
 }
 
 // Save aura data
 function saveAuraData(data) {
-    fs.writeFileSync(auraFilePath, JSON.stringify(data, null, 2));
+    try {
+        fs.writeFileSync(auraFilePath, JSON.stringify(data, null, 2));
+    } catch (error) {
+        console.error('Error saving aura data:', error.message);
+    }
 }
 
 // Define reaction values
