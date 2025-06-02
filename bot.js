@@ -9,7 +9,7 @@
 
   // Create users directory if it doesn't exist
   if (!fs.existsSync(usersPath)) {
-      fs.mkdirSync(usersPath, { recursive: true });
+      fs.mkdirSync(usersPath);
   }
 
   function getUserData(userId) {
@@ -25,44 +25,12 @@
           fs.writeFileSync(userPath, JSON.stringify(defaultData, null, 2));
           return defaultData;
       }
-    
-      try {
-          const data = fs.readFileSync(userPath, 'utf8');
-          if (data.trim()) {
-              return JSON.parse(data);
-          } else {
-              // File is empty, return default data
-              const defaultData = {
-                  balance: 0,
-                  xp: 0,
-                  level: 1,
-                  messageCount: 0,
-                  lastDaily: null
-              };
-              fs.writeFileSync(userPath, JSON.stringify(defaultData, null, 2));
-              return defaultData;
-          }
-      } catch (error) {
-          console.error(`Error parsing user data for ${userId}, creating new file:`, error.message);
-          const defaultData = {
-              balance: 0,
-              xp: 0,
-              level: 1,
-              messageCount: 0,
-              lastDaily: null
-          };
-          fs.writeFileSync(userPath, JSON.stringify(defaultData, null, 2));
-          return defaultData;
-      }
+      return JSON.parse(fs.readFileSync(userPath, 'utf8'));
   }
 
   function saveUserData(userId, data) {
       const userPath = path.join(usersPath, `${userId}.json`);
-      try {
-          fs.writeFileSync(userPath, JSON.stringify(data, null, 2));
-      } catch (error) {
-          console.error(`Error saving user data for ${userId}:`, error.message);
-      }
+      fs.writeFileSync(userPath, JSON.stringify(data, null, 2));
   }
 
   const client = new Client({
@@ -128,6 +96,57 @@
   });
 
   client.on('interactionCreate', async interaction => {
+      // Handle button interactions
+      if (interaction.isButton()) {
+          if (interaction.customId === 'staff_application') {
+              try {
+                  // Get the staff notification channel
+                  const staffChannel = interaction.client.channels.cache.get('1073483385281990737');
+                  
+                  if (!staffChannel) {
+                      return interaction.reply({ 
+                          content: 'Error: Staff notification channel not found.', 
+                          ephemeral: true 
+                      });
+                  }
+
+                  // Create embed for staff notification
+                  const staffEmbed = new EmbedBuilder()
+                      .setTitle('📋 New Staff Application')
+                      .setDescription(`**${interaction.user.tag}** is interested in becoming a moderator!`)
+                      .addFields(
+                          { name: 'User', value: `<@${interaction.user.id}>`, inline: true },
+                          { name: 'User ID', value: interaction.user.id, inline: true },
+                          { name: 'Applied From', value: `<#${interaction.channel.id}>`, inline: true }
+                      )
+                      .setThumbnail(interaction.user.displayAvatarURL())
+                      .setColor('#00ff00')
+                      .setTimestamp();
+
+                  // Send notification to staff channel with role ping
+                  await staffChannel.send({
+                      content: `<@&689147294649679894> New staff application received!`,
+                      embeds: [staffEmbed]
+                  });
+
+                  // Reply to the user
+                  await interaction.reply({
+                      content: '✅ Your interest in becoming a staff member has been submitted! A moderator will get back to you as soon as possible.',
+                      ephemeral: true
+                  });
+
+              } catch (error) {
+                  console.error('Error handling staff application:', error);
+                  await interaction.reply({
+                      content: 'There was an error processing your application. Please try again later.',
+                      ephemeral: true
+                  });
+              }
+          }
+          return;
+      }
+
+      // Your existing slash command handler code continues here...
       if (!interaction.isChatInputCommand()) return;
 
       const command = client.commands.get(interaction.commandName);
