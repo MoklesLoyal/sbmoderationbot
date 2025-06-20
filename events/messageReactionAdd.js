@@ -15,17 +15,50 @@ if (!fs.existsSync(dataPath)) {
 
 // Initialize or load reactions data
 function getReactionsData() {
+    const defaultData = { messages: [] };
+    
     if (!fs.existsSync(reactionsFilePath)) {
-        const defaultData = { messages: [] };
         fs.writeFileSync(reactionsFilePath, JSON.stringify(defaultData, null, 2));
         return defaultData;
     }
-    return JSON.parse(fs.readFileSync(reactionsFilePath, 'utf8'));
+    
+    try {
+        const fileContent = fs.readFileSync(reactionsFilePath, 'utf8');
+        
+        // Check if file is empty or contains only whitespace
+        if (!fileContent.trim()) {
+            console.log('Empty reactions file detected, recreating...');
+            fs.writeFileSync(reactionsFilePath, JSON.stringify(defaultData, null, 2));
+            return defaultData;
+        }
+        
+        return JSON.parse(fileContent);
+    } catch (error) {
+        console.error('Error parsing reactions data:', error.message);
+        console.log('Recreating corrupted reactions file...');
+        
+        // Backup the corrupted file
+        const backupPath = reactionsFilePath + `_corrupted_${Date.now()}.bak`;
+        try {
+            fs.copyFileSync(reactionsFilePath, backupPath);
+            console.log(`Corrupted file backed up to: ${backupPath}`);
+        } catch (backupError) {
+            console.error('Failed to backup corrupted file:', backupError.message);
+        }
+        
+        // Create new file with default data
+        fs.writeFileSync(reactionsFilePath, JSON.stringify(defaultData, null, 2));
+        return defaultData;
+    }
 }
 
 // Save reactions data
 function saveReactionsData(data) {
-    fs.writeFileSync(reactionsFilePath, JSON.stringify(data, null, 2));
+    try {
+        fs.writeFileSync(reactionsFilePath, JSON.stringify(data, null, 2));
+    } catch (error) {
+        console.error('Error saving reactions data:', error.message);
+    }
 }
 
 module.exports = {
